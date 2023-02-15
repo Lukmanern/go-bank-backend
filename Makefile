@@ -19,4 +19,7 @@ rootdb:
 simple_bank_db:
 	docker exec -it postgres-alpine psql -U root simple_bank
 
+sqlc:
+	docker run --rm -v C:\Users\Lenovo\go\src\go-bank:/src -w /src kjconroy/sqlc:1.4.0 generate
+
 .PHONY: postgres createdb dropdb migrateup migratedown
