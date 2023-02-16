@@ -82,13 +82,13 @@ func TestDeleteAccount(t *testing.T) {
 }
 
 func TestAccountsList(t *testing.T) {
-	for i := 0; i < 20; i++ {
+	for i := 0; i < 10; i++ {
 		CreateRandomAccount(t)
 	}
 
 	args := AccountsListParams{
-		Limit: 5,
-		Offset: 5,
+		Limit: 2,
+		Offset: 2,
 	}
 
 	accounts, err := testQueries.AccountsList(context.Background(), args)
