@@ -22,4 +22,7 @@ simple_bank_db:
 sqlc:
 	docker run --rm -v C:\Users\Lenovo\go\src\go-bank:/src -w /src kjconroy/sqlc:1.4.0 generate
 
+test:
+	go test -v -cover ./...
+
 .PHONY: postgres createdb dropdb migrateup migratedown sqlc

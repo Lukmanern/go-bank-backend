@@ -1,3 +1,3 @@
 ### Note
 
-- change PWD in Makefile:sqlc
+- change `$PWD` in Makefile:sqlc
