@@ -97,4 +97,10 @@ func TestAccountsList(t *testing.T) {
 	for _, account := range accounts {
 		require.NotEmpty(t, account)
 	}
+
+	// error schema test
+	args.Limit = -1
+	args.Offset = -1
+	_, err = testQueries.AccountsList(context.Background(), args)
+	require.Error(t, err)
 }

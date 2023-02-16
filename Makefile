@@ -25,4 +25,10 @@ sqlc:
 test:
 	go test -v -cover ./...
 
+test-with-output:
+	go test -coverprofile=coverage.out ./...
+
+show-test-output:
+	go tool cover -html=coverage.out
+
 .PHONY: postgres createdb dropdb migrateup migratedown sqlc

@@ -70,4 +70,10 @@ func TestListTransfers(t *testing.T) {
 	for _, transfer := range transfers {
 		require.NotEmpty(t, transfer)
 	}
+
+	// error schema test
+	args.Limit = -1
+	args.Offset = -1
+	_, err = testQueries.ListTransfers(context.Background(), args)
+	require.Error(t, err)
 }

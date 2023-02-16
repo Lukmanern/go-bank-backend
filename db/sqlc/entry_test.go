@@ -3,6 +3,7 @@ package db
 import (
 	"context"
 	"testing"
+	"time"
 
 	"github.com/Lukmanern/go-bank-backend/util"
 	"github.com/stretchr/testify/require"
@@ -32,10 +33,28 @@ func TestCreateEntry(t *testing.T) {
 
 func TestGetEntry(t *testing.T) {
 	account := CreateRandomAccount(t)
-	entry := CreateRandomEntry(t, account.ID)
-	require.NotEmpty(t, entry)
+	entry1 := CreateRandomEntry(t, account.ID)
+	require.NotEmpty(t, entry1)
+
+	entry2, err := testQueries.GetEntry(context.Background(), entry1.ID)
+	require.NoError(t, err)
+	require.NotEmpty(t, entry2)
+
+	require.Equal(t, entry1.ID, entry2.ID)
+	require.Equal(t, entry1.AccountID, entry2.AccountID)
+	require.Equal(t, entry1.Amount, entry2.Amount)
+	require.WithinDuration(t, entry1.CreatedAt, entry2.CreatedAt, time.Second)
 }
 
+
+
+// type Entry struct {
+// 	ID        int64 `json:"id"`
+// 	AccountID int64 `json:"account_id"`
+// 	// can be negative or positive
+// 	Amount    int64     `json:"amount"`
+// 	CreatedAt time.Time `json:"created_at"`
+// }
 func TestListEntries(t *testing.T) {
 	account := CreateRandomAccount(t)
 	for i := 0; i < 10; i++ {
@@ -55,4 +74,10 @@ func TestListEntries(t *testing.T) {
 	for _, entry := range entries {
 		require.NotEmpty(t, entry)
 	}
+
+	// error schema test
+	args.Limit = -1
+	args.Offset = -1
+	_, err = testQueries.ListEntries(context.Background(), args)
+	require.Error(t, err)
 }
