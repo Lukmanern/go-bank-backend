@@ -7,7 +7,6 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-
 func TestRandomInt(t *testing.T) {
 	dataset := [][]int64{
 		{100, 200},
