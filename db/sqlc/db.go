@@ -22,8 +22,9 @@ type Queries struct {
 	db DBTX
 }
 
-// func (q *Queries) WithTx(tx *sql.Tx) *Queries {
-// 	return &Queries{
-// 		db: tx,
-// 	}
-// }
+// WithTx for exec query with transaction
+func (q *Queries) WithTx(tx *sql.Tx) *Queries {
+	return &Queries{
+		db: tx,
+	}
+}
